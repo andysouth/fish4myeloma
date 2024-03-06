@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-**Active development 2024, breaking changes possible**     
+**Early development 2024, breaking changes likely**
+**Preliminary abnormality detection not yet finalised** 
 
 **fish4myeloma** extracts Myeloma abnormalities from cytogenetic [FISH](https://en.wikipedia.org/wiki/Fluorescence_in_situ_hybridization) (Fluorescence in situ hybridization) data represented in strings according to the [ISCN](https://en.wikipedia.org/wiki/International_System_for_Human_Cytogenomic_Nomenclature) standardised nomenclature.
 
@@ -37,8 +38,24 @@ devtools::install_github("andysouth/fish4myeloma")
 
 ```{r example}
 library(fish4myeloma)
-## basic example code
-## TODO
+
+## make some simple test data
+fish_raw <- dplyr::tibble(test_id <- c(1:5),
+                          fishstring=c("17p13(TP53x3) CKS1Bx3",
+                                       "17p13(TP53x2) CKS1Bx2",
+                                       "17p13(TP53x1) CKS1Bx1 FGFR3 con IGH",
+                                       "IGH con MAF",
+                                       "CCND1 con IGH"
+                          ))
+
+fish_processed <- fish_raw |>
+   fish4del17p("fishstring") |>
+   fish4cks1b("fishstring") |>
+   fish4ighfgfr3("fishstring") |>
+   fish4ighmaf("fishstring") |>
+   fish4ighccnd1("fishstring")
+
+knitr::kable(fish_processed)
 
 ```
 

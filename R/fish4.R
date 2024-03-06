@@ -68,7 +68,7 @@ fish4ighfgfr3 <- function(df, column="region_gene")
 #' @param column name of column containing FISH strings, default="region_gene"
 #' @export
 #' @examples
-#' df1 <- dplyr::tibble(fishstring=c("IGH con IGH","anything else!"))
+#' df1 <- dplyr::tibble(fishstring=c("IGH con MAF","anything else!"))
 #' df2 <- df1 |> fish4ighmaf(column="fishstring")
 fish4ighmaf <- function(df, column="region_gene")
 {
