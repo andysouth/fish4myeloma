@@ -15,4 +15,5 @@ BugReports: https://github.com/andysouth/fish4myeloma/issues
 Imports: 
     dplyr,
     rlang,
-    stringr
+    stringr,
+    tidyr

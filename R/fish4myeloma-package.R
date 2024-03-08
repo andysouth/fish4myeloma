@@ -16,6 +16,9 @@
 #' @importFrom stringr str_sub
 #' @importFrom stringr fixed
 #'
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr ends_with
+
 #'
 ## usethis namespace: end
 #NULL

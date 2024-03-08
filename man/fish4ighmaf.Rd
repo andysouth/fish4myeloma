@@ -15,6 +15,6 @@ fish4ighmaf(df, column = "region_gene")
 extract ighmaf abnormalities from cytogenetic FISH data
 }
 \examples{
-df1 <- dplyr::tibble(fishstring=c("IGH con IGH","anything else!"))
+df1 <- dplyr::tibble(fishstring=c("IGH con MAF","anything else!"))
 df2 <- df1 |> fish4ighmaf(column="fishstring")
 }

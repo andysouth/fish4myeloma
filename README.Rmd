@@ -36,11 +36,13 @@ devtools::install_github("andysouth/fish4myeloma")
 
 ## Example
 
+### detect abnormalities in simple test data
+
 ```{r example}
 library(fish4myeloma)
 
 ## make some simple test data
-fish_raw <- dplyr::tibble(test_id <- c(1:5),
+fish_raw <- dplyr::tibble(test_id = c(1:5),
                           fishstring=c("17p13(TP53x3) CKS1Bx3",
                                        "17p13(TP53x2) CKS1Bx2",
                                        "17p13(TP53x1) CKS1Bx1 FGFR3 con IGH",
@@ -59,4 +61,14 @@ knitr::kable(fish_processed)
 
 ```
 
+### map abnormalities to OMOP ids, one per abnormality
 
+(omop ids not added yet, can have in a lookup table from name)
+
+```{r fish2omop}
+
+fish_omop <- fish_processed |> fish2omop() 
+
+knitr::kable(fish_omop)
+
+```
