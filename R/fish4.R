@@ -1,3 +1,29 @@
+#' extract all abnormalities from cytogenetic FISH data
+#'
+#' @param df data frame with a column containing FISH strings
+#' @param column name of column containing FISH strings, default="region_gene"
+#' @export
+#' @examples
+#' # make some simple test data
+#' fish_raw <- dplyr::tibble(test_id = c(1:5),
+#'                             fishstring=c("17p13(TP53x3) CKS1Bx3",
+#'                                       "17p13(TP53x2) CKS1Bx2",
+#'                                       "17p13(TP53x1) CKS1Bx1 FGFR3 con IGH",
+#'                                       "IGH con MAF",
+#'                                       "CCND1 con IGH"))
+#' fish_processed <- fish_raw |> fish4all("fishstring")
+
+fish4all <- function(df, column="region_gene")
+{
+
+  df2 <- df |>
+      fish4del17p(column) |>
+      fish4cks1b(column) |>
+      fish4ighfgfr3(column) |>
+      fish4ighmaf(column) |>
+      fish4ighccnd1(column)
+}
+
 #' extract cks1b abnormalities from cytogenetic FISH data
 #'
 #' @param df data frame with a column containing FISH strings
