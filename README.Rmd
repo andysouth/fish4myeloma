@@ -50,14 +50,18 @@ fish_raw <- dplyr::tibble(test_id = c(1:5),
                                        "CCND1 con IGH"
                           ))
 
-fish_processed <- fish_raw |>
-   fish4del17p("fishstring") |>
-   fish4cks1b("fishstring") |>
-   fish4ighfgfr3("fishstring") |>
-   fish4ighmaf("fishstring") |>
-   fish4ighccnd1("fishstring")
+fish_processed <- fish_raw |> fish4all("fishstring")
 
 knitr::kable(fish_processed)
+
+# old way calling functions individually
+
+# fish_processed <- fish_raw |>
+#    fish4cks1b("fishstring") |>
+#    fish4del17p("fishstring") |>
+#    fish4ighfgfr3("fishstring") |>
+#    fish4ighmaf("fishstring") |>
+#    fish4ighccnd1("fishstring")
 
 ```
 

@@ -20,8 +20,12 @@ fish2omop <- function(df)
   df2 <- df |>
     #TODO decide how to filter next better
     select(!cks1b_repeat) |>
-    pivot_longer(cols=ends_with("normality")) |>
-    filter(value=="abnormal")
+    pivot_longer(cols=ends_with("normality"), names_to="abnormality") |>
+    filter(value=="abnormal") |>
+    mutate(abnormality=str_remove(abnormality,"_normality")) |>
+    #to join on loinc code
+    left_join(fishmloinc())
+
 
   #todo left join *_normality with a lookup table of omop IDs
 

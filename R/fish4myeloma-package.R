@@ -13,8 +13,10 @@
 
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_locate
+#' @importFrom stringr str_remove
 #' @importFrom stringr str_sub
 #' @importFrom stringr fixed
+#'
 #'
 #' @importFrom tidyr pivot_longer
 #' @importFrom tidyr ends_with

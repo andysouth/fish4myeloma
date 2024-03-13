@@ -17,8 +17,8 @@ fish4all <- function(df, column="region_gene")
 {
 
   df2 <- df |>
-      fish4del17p(column) |>
       fish4cks1b(column) |>
+      fish4del17p(column) |>
       fish4ighfgfr3(column) |>
       fish4ighmaf(column) |>
       fish4ighccnd1(column)

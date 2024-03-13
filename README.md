@@ -43,23 +43,30 @@ fish_raw <- dplyr::tibble(test_id = c(1:5),
                                        "CCND1 con IGH"
                           ))
 
-fish_processed <- fish_raw |>
-   fish4del17p("fishstring") |>
-   fish4cks1b("fishstring") |>
-   fish4ighfgfr3("fishstring") |>
-   fish4ighmaf("fishstring") |>
-   fish4ighccnd1("fishstring")
+fish_processed <- fish_raw |> fish4all("fishstring")
 
 knitr::kable(fish_processed)
 ```
 
-| test_id | fishstring                          | del17p_normality | cks1b_repeat | cks1b_normality | ighfgfr3_normality | ighmaf_normality | ighccnd1_normality |
-|--------:|:------------------------------------|:-----------------|:-------------|:----------------|:-------------------|:-----------------|:-------------------|
-|       1 | 17p13(TP53x3) CKS1Bx3               | NA               | 3            | abnormal        | NA                 | NA               | NA                 |
-|       2 | 17p13(TP53x2) CKS1Bx2               | normal           | 2            | normal          | NA                 | NA               | NA                 |
-|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | abnormal         | 1            | abnormal        | abnormal           | NA               | NA                 |
-|       4 | IGH con MAF                         | NA               | NA           | NA              | NA                 | abnormal         | NA                 |
-|       5 | CCND1 con IGH                       | NA               | NA           | NA              | NA                 | NA               | abnormal           |
+| test_id | fishstring                          | cks1b_repeat | cks1b_normality | del17p_normality | ighfgfr3_normality | ighmaf_normality | ighccnd1_normality |
+|--------:|:------------------------------------|:-------------|:----------------|:-----------------|:-------------------|:-----------------|:-------------------|
+|       1 | 17p13(TP53x3) CKS1Bx3               | 3            | abnormal        | NA               | NA                 | NA               | NA                 |
+|       2 | 17p13(TP53x2) CKS1Bx2               | 2            | normal          | normal           | NA                 | NA               | NA                 |
+|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | 1            | abnormal        | abnormal         | abnormal           | NA               | NA                 |
+|       4 | IGH con MAF                         | NA           | NA              | NA               | NA                 | abnormal         | NA                 |
+|       5 | CCND1 con IGH                       | NA           | NA              | NA               | NA                 | NA               | abnormal           |
+
+``` r
+
+# old way calling functions individually
+
+# fish_processed <- fish_raw |>
+#    fish4cks1b("fishstring") |>
+#    fish4del17p("fishstring") |>
+#    fish4ighfgfr3("fishstring") |>
+#    fish4ighmaf("fishstring") |>
+#    fish4ighccnd1("fishstring")
+```
 
 ### map abnormalities to OMOP ids, one per abnormality
 
@@ -68,15 +75,16 @@ knitr::kable(fish_processed)
 ``` r
 
 fish_omop <- fish_processed |> fish2omop() 
+#> Joining with `by = join_by(abnormality)`
 
 knitr::kable(fish_omop)
 ```
 
-| test_id | fishstring                          | name               | value    |
-|--------:|:------------------------------------|:-------------------|:---------|
-|       1 | 17p13(TP53x3) CKS1Bx3               | cks1b_normality    | abnormal |
-|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | del17p_normality   | abnormal |
-|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | cks1b_normality    | abnormal |
-|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | ighfgfr3_normality | abnormal |
-|       4 | IGH con MAF                         | ighmaf_normality   | abnormal |
-|       5 | CCND1 con IGH                       | ighccnd1_normality | abnormal |
+| test_id | fishstring                          | abnormality | value    | loinc_fish |
+|--------:|:------------------------------------|:------------|:---------|:-----------|
+|       1 | 17p13(TP53x3) CKS1Bx3               | cks1b       | abnormal | 81752-8    |
+|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | cks1b       | abnormal | 81752-8    |
+|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | del17p      | abnormal | 81746-0    |
+|       3 | 17p13(TP53x1) CKS1Bx1 FGFR3 con IGH | ighfgfr3    | abnormal | 72726-3    |
+|       4 | IGH con MAF                         | ighmaf      | abnormal | 77033-9    |
+|       5 | CCND1 con IGH                       | ighccnd1    | abnormal | 77037-0    |
